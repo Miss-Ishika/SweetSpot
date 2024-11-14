@@ -1,0 +1,13 @@
+Some useful nodes:
+
+express - for nodejs framework - expressjs
+mongoose - to connect with database
+jsonwebtoken - for authentication system
+bcrypt - to encrypt user data
+cors - give permission to frontend to connect with backend
+dotenv - to use environment variable
+body-parser - to parse the data coming from user
+multer - for image store system
+stripe - to add payment gateway 
+validator - to see password or user-id is valide or not
+nodemon - so that when we save code, the server get restarted

@@ -1,0 +1,25 @@
+.profile{
+    position: relative;
+}
+
+.profile-dropdown{
+    position: absolute;
+    right: 0;
+    display: none;
+    z-index: 1;
+    color: slategray;
+}
+
+.profile:hover .profile-dropdown{
+    display: block;
+    border: 1px solid slategray;
+    margin-top: 0px;
+    border-radius: 10px;
+}
+.profile:hover .profile-dropdown li{
+    list-style: none;
+    padding: 5px 10px;
+    font-size: 15px;
+    
+    cursor: pointer;
+}
