@@ -9,6 +9,8 @@ const Cart = () => {
 
     const navigation = useNavigate();
 
+    let total1 = 0;
+
   return (
     <div className='mt-16'>
         <div className='mx-24 my-4 flex flex-col justify-center'> 
@@ -31,7 +33,8 @@ const Cart = () => {
                             <p>{item.name}</p>
                             <p>{item.price}</p>
                             <p>{cartItems[item._id]}g</p>
-                            <p>₹{cartItems[item._id]*item.price}/-</p>
+                            <p>₹{(cartItems[item._id]/50)*item.price}/-</p>
+                            <div className='hidden'>{total1 += (cartItems[item._id]/50)*item.price}</div>
                             <p><button className='hover:text-red-400' onClick={() => removeFromCart(item._id)}>{cartItems[item._id] === 50 ? "Remove Item" : "Reduce Quantity"}</button></p>
                             <hr className='w-3/4'/>
                           </div>
@@ -47,19 +50,19 @@ const Cart = () => {
               <div className='text-3xl font-bold text-slate-700'>Cart Total</div>
               <div className='flex justify-between items-center'>
                 <div className='font-semibold text-lg text-slate-500 my-2'>Subtotal</div>
-                <div>₹{getTotalAmount()}.00</div>
+                <div>₹{total1}.00</div>
               </div>
               <hr className='border-gray-300'/>
               <div className='flex justify-between items-center'>
                 <div className='font-semibold text-lg text-slate-500 my-2'>Delivery Charge</div>
-                <div>₹{getTotalAmount() === 0 ? 0 : 10}.00</div>
+                <div>₹{total1 === 0 ? 0 : 10}.00</div>
               </div>
               <hr className='border-gray-300'/>
               <div className='flex justify-between items-center'>
                 <div className='font-bold text-lg text-slate-600 my-2'>Total</div>
-                <div>₹{getTotalAmount() === 0 ? 0 : getTotalAmount() + 10}.00</div>
+                <div>₹{total1 === 0 ? 0 : total1 + 10}.00</div>
               </div>
-              <button className='bg-orange-600 hover:bg-orange-500 duration-300 rounded-lg text-white text-lg font-bold w-72 h-12 my-4' onClick={() => navigation('/placeOrder')}>Preceed To Checkout</button>
+              <button className='bg-orange-600 hover:bg-orange-500 duration-300 rounded-lg text-white text-lg font-bold w-72 h-12 my-4' onClick={() => navigation('/placeOrder', { state: { total: total1 } })}>Preceed To Checkout</button>
             </div>
             
             <div className='flex-1 mx-8 my-8 flex flex-col gap-4'>

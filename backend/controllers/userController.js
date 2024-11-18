@@ -48,6 +48,16 @@ const registerUser = async (req, res) => {
         return res.json({success: false, message: "Password must be at least 8 characters"});
     }
 
+    let countSpecial = 0;
+    for(let i = 0; i < password.length; i++){
+        if(password[i] == "!" || password[i] == "@" || password[i] == "#" || password[i] == "$" || password[i] == "%"){
+            countSpecial++;
+        }
+    }
+    if(countSpecial < 1){
+        return res.json({success: false, message: "Password must contain at least one special character"});
+    }
+
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
 

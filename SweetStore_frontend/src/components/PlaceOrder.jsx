@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState, } from "react";
 import { StoreContext } from "./StoreContext";
 import axios from "axios";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useLocation, useNavigate, useNavigation } from "react-router-dom";
 
 const PlaceOrder = () => {
+
+  const location = useLocation();
+  const { total } = location.state || {}; // Retrieve total1
 
     const {food_list, getTotalAmount, cartItems, token, url} = useContext(StoreContext);
 
@@ -37,7 +40,7 @@ const PlaceOrder = () => {
             userId : token,
             address : data,
             items : orderItems,
-            amount : getTotalAmount() + 2,
+            amount : total + 2,
           }
           const response = await axios.post(url + "/api/order/place", orderData, {headers: {token}});
 
@@ -54,7 +57,7 @@ const PlaceOrder = () => {
     useEffect(() => {
       if(!token){
         navigate('/');
-      }else if(getTotalAmount() === 0){
+      }else if(total === 0){
         navigate('/')
       }
     },[token])
@@ -93,19 +96,19 @@ const PlaceOrder = () => {
             <div className="font-semibold text-lg text-slate-500 my-2">
               Subtotal
             </div>
-            <div>₹{getTotalAmount()}.00</div>
+            <div>₹{total}.00</div>
           </div>
           <hr className="border-gray-300" />
           <div className="flex justify-between items-center">
             <div className="font-semibold text-lg text-slate-500 my-2">
               Delivery Charge
             </div>
-            <div>₹{getTotalAmount() === 0 ? 0 : 10}.00</div>
+            <div>₹{total === 0 ? 0 : 10}.00</div>
           </div>
           <hr className="border-gray-300" />
           <div className="flex justify-between items-center">
             <div className="font-bold text-lg text-slate-600 my-2">Total</div>
-            <div>₹{getTotalAmount() === 0 ? 0 : getTotalAmount() + 10}.00</div>
+            <div>₹{total === 0 ? 0 : total + 10}.00</div>
           </div>
           <button
             type="submit"

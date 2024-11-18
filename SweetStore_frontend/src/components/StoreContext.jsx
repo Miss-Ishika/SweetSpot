@@ -14,9 +14,12 @@ const StoreContextProvider = (props) => {
 
     const [food_list, setFoodList] = useState([]);
 
-    const addToCart = async (itemId) => {
+    const addToCart = async (itemId, price) => {
+        // console.log(itemId, price);
+        // console.log(cartItems);
+        console.log(typeof(cartItems[itemId]));
         if(!cartItems[itemId]){
-            setCartItems((prev) => ({...prev, [itemId]: 50}))
+            setCartItems((prev) => ({...prev, [itemId]: 50, price: price}))
         }else{
             setCartItems((prev) => ({...prev, [itemId]: prev[itemId] + 50}))
         }
@@ -33,24 +36,26 @@ const StoreContextProvider = (props) => {
         }
     }
 
-    const getTotalAmount = () => {
-        let amount = 0
-        for (const item in cartItems) {
-            if (cartItems[item] > 0) {
-                amount += cartItems[item]*50
-               }
-        }
-        return amount
-    }
+    // const getTotalAmount = () => {
+    //     let amount = 0
+    //     for (const item in cartItems) {
+    //         console.log("cartItems",item, cartItems[item]);
+    //         amount += cartItems[item]
+    //         // if (cartItems[item] > 0) {
+    //         //     amount += cartItems[item]*50                 //cartItems[price];
+    //         //    }
+    //     }
+    //     return amount
+    // }
 
         const getTotalItem = () => {
             let itemNo = 0
             for (const item in cartItems) {
                 if (cartItems[item] > 0) {
-                    itemNo += cartItems[item]
+                    itemNo++;
                 }
             }
-            return itemNo/50
+            return itemNo
         }
 
         const fetchFoodList = async () => {
@@ -80,7 +85,7 @@ const StoreContextProvider = (props) => {
             setCartItems,
             addToCart,
             removeFromCart,
-            getTotalAmount,
+            // getTotalAmount,
             getTotalItem,
             url,
             token,
